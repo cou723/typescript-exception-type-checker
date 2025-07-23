@@ -25,7 +25,10 @@ deno task extract samples/nested-sample.ts
 ### プログラムから使用
 
 ```typescript
-import { extractRootFunctionsWithThrows, FunctionInfo } from "./extract-functions.ts";
+import {
+  extractRootFunctionsWithThrows,
+  FunctionInfo,
+} from "./extract-functions.ts";
 
 const sourceCode = `
 /**
@@ -56,37 +59,57 @@ console.log(functions);
 ## 開発コマンド
 
 ### テスト実行
+
 ```bash
 deno task test
 ```
 
 ### 型チェック
+
 ```bash
 deno task check
 ```
-※ samplesディレクトリは除外されます
+
+### Lint
+
+```bash
+deno task lint
+```
+
+### フォーマット
+
+```bash
+deno task format
+```
+
+※ 全て samplesディレクトリは除外されます
 
 ### Git Hooks
-- **pre-push**: push前に自動で型チェックを実行
-- 型チェックに失敗した場合、pushが中止されます
+
+- **pre-push**: push前に自動でコード品質チェックを実行
+  1. **フォーマット**: コードを自動整形（常に実行）
+  2. **Lint**: コード品質チェック（失敗時はpush中止）
+  3. **型チェック**: TypeScript型チェック（失敗時はpush中止）
 
 ## データ型
 
 ### FunctionInfo
+
 ```typescript
 interface FunctionInfo {
-  name: string;           // 関数名
-  throws: ThrowsInfo[];   // 例外情報の配列
-  nestLevel: number;      // ネストレベル (0=ルート)
-  parentChain: string[];  // 親関数のチェーン
+  name: string; // 関数名
+  throws: ThrowsInfo[]; // 例外情報の配列
+  nestLevel: number; // ネストレベル (0=ルート)
+  parentChain: string[]; // 親関数のチェーン
 }
 ```
 
 ### ThrowsInfo
+
 ```typescript
 interface ThrowsInfo {
-  type: string;          // エラー型 (例: "TypeError")
-  description?: string;  // 説明文 (例: "引数が無効な場合")
+  type: string; // エラー型 (例: "TypeError")
+  description?: string; // 説明文 (例: "引数が無効な場合")
 }
 ```
 

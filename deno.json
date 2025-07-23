@@ -3,7 +3,9 @@
     "dev": "deno run --watch main.ts",
     "extract": "deno run --allow-read --allow-env extract-functions.ts",
     "test": "deno test --allow-env",
-    "check": "find . -name '*.ts' -not -path './samples/*' | xargs deno check"
+    "check": "find . -name '*.ts' -not -path './samples/*' | xargs deno check",
+    "lint": "deno lint --ignore=samples/",
+    "format": "deno fmt --ignore=samples/"
   },
   "imports": {
     "@std/assert": "jsr:@std/assert@1",

@@ -1,5 +1,8 @@
 import { assertEquals } from "@std/assert";
-import { extractRootFunctions, extractRootFunctionsWithThrows, FunctionInfo, ThrowsInfo } from "./extract-functions.ts";
+import {
+  extractRootFunctions,
+  extractRootFunctionsWithThrows,
+} from "./extract-functions.ts";
 
 Deno.test("基本的な関数宣言の抽出", () => {
   const code = `
@@ -79,7 +82,7 @@ function simpleFunction() {
   assertEquals(result[0].name, "processData");
   assertEquals(result[0].throws, [
     { type: "ValidationError", description: "無効なデータの場合" },
-    { type: "TypeError", description: "型が不正な場合" }
+    { type: "TypeError", description: "型が不正な場合" },
   ]);
   assertEquals(result[1].name, "simpleFunction");
   assertEquals(result[1].throws, []);
@@ -105,7 +108,7 @@ function readFile(filePath: string): string {
   assertEquals(result[0].throws, [
     { type: "FileNotFoundError", description: "ファイルが見つからない場合" },
     { type: "PermissionError", description: "読み込み権限がない場合" },
-    { type: "IOError", description: "I/Oエラーが発生した場合" }
+    { type: "IOError", description: "I/Oエラーが発生した場合" },
   ]);
 });
 
@@ -123,12 +126,12 @@ function outer() {
 `;
   const result = extractRootFunctionsWithThrows(code);
   assertEquals(result.length, 2);
-  
+
   // outer関数
   assertEquals(result[0].name, "outer");
   assertEquals(result[0].nestLevel, 0);
   assertEquals(result[0].parentChain, []);
-  
+
   // inner関数
   assertEquals(result[1].name, "inner");
   assertEquals(result[1].nestLevel, 1);
