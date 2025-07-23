@@ -1,7 +1,7 @@
 {
   "tasks": {
     "dev": "deno run --watch main.ts",
-    "extract": "deno run --allow-read extract-functions.ts",
+    "extract": "deno run --allow-read --allow-env extract-functions.ts",
     "test": "deno test --allow-env"
   },
   "imports": {
