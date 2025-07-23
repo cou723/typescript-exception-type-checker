@@ -53,11 +53,22 @@ console.log(functions);
 └── CLAUDE.md               # このドキュメント
 ```
 
-## テスト実行
+## 開発コマンド
 
+### テスト実行
 ```bash
 deno task test
 ```
+
+### 型チェック
+```bash
+deno task check
+```
+※ samplesディレクトリは除外されます
+
+### Git Hooks
+- **pre-push**: push前に自動で型チェックを実行
+- 型チェックに失敗した場合、pushが中止されます
 
 ## データ型
 
